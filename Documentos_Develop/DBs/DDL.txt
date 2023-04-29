@@ -1,0 +1,67 @@
+CREATE TABLE public.edificios (
+	id_edif serial4 NOT NULL,
+	pais varchar NOT NULL,
+	pcia varchar NOT NULL,
+	ciudad varchar NOT NULL,
+	nombre varchar NULL,
+	direccion varchar NOT NULL,
+	CONSTRAINT edificios_pk PRIMARY KEY (id_edif)
+);
+
+
+CREATE TABLE public.unidad_funcional (
+	id_uf serial4 NOT NULL,
+	unidad_funcional varchar NOT NULL,
+	uf_tipo varchar NOT NULL,
+	piso varchar NOT NULL,
+	dpto varchar NOT NULL,
+	coprop_nombre varchar NOT NULL,
+	porc_a varchar NULL,
+	porc_b varchar NULL,
+	porc_c varchar NULL,
+	porc_d varchar NULL,
+	edif_fk int4 NOT NULL,
+	CONSTRAINT unidad_funcional_pk PRIMARY KEY (id_uf),
+	CONSTRAINT unidad_funcional_fk FOREIGN KEY (edif_fk) REFERENCES public.edificios(id_edif) ON DELETE RESTRICT ON UPDATE CASCADE
+);
+
+CREATE TABLE public.edif_ameni (
+	edi_fk int4 NOT NULL,
+	ameni_fk int4 NOT NULL,
+	CONSTRAINT edif_ameni_fk FOREIGN KEY (edi_fk) REFERENCES public.edificios(id_edif) ON DELETE RESTRICT,
+	CONSTRAINT edif_ameni_fk_1 FOREIGN KEY (ameni_fk) REFERENCES public.amenities(id_ameni)
+);
+
+CREATE TABLE public.amenities (
+	id_ameni serial4 NOT NULL,
+	descripcion varchar NULL,
+	CONSTRAINT amenities_pk PRIMARY KEY (id_ameni)
+);
+
+CREATE TABLE public.reserva_ameni (
+	id_reserva serial4 NOT NULL,
+	fecha_dde date NOT NULL,
+	hora_dde time NOT NULL,
+	fecha_hasta date NOT NULL,
+	hora_hasta time NOT NULL,
+	edi_fk int4 NOT NULL,
+	uf_fk int4 NOT NULL,
+	ameni_fk int4 NOT NULL,
+	CONSTRAINT reserva_ameni_pk PRIMARY KEY (id_reserva),
+	CONSTRAINT reserva_ameni_fk FOREIGN KEY (edi_fk) REFERENCES public.edificios(id_edif),
+	CONSTRAINT reserva_ameni_fk_1 FOREIGN KEY (uf_fk) REFERENCES public.unidad_funcional(id_uf),
+	CONSTRAINT reserva_ameni_fk_2 FOREIGN KEY (ameni_fk) REFERENCES public.amenities(id_ameni)
+);
+CREATE TABLE public.reclamos_sugerencias (
+	id_rec_sug serial4 NOT NULL,
+	reclamo_sugerencia varchar NOT NULL,
+	asunto varchar NULL,
+	descripcion varchar NULL,
+	edi_fk int4 NOT NULL,
+	uf_fk int4 NULL,
+	CONSTRAINT reclamos_sugerencias_pk PRIMARY KEY (id_rec_sug),
+	CONSTRAINT reclamos_sugerencias_fk FOREIGN KEY (edi_fk) REFERENCES public.edificios(id_edif),
+	CONSTRAINT reclamos_sugerencias_fk_1 FOREIGN KEY (uf_fk) REFERENCES public.unidad_funcional(id_uf)
+);
+
+
