@@ -14,64 +14,50 @@ def validate_email(value):
         raise ValidationError('Correo electrónico inválido')
     return value
  
-class ContactoForm(forms.Form):
-    TIPO_CONSULTA = (
-        ('','-Seleccione-'),
-        (1,'Inscripciones'),
-        (2,'Soporte Aula Virtual'),
-        (3,'Ser docente'),
-    )
+class NuevoUsuario(forms.Form):
+    
     nombre = forms.CharField(
             label='Nombre', 
             max_length=50,
             validators=(solo_caracteres,),
+            error_messages={
+                    'required': 'Por favor completa el campo'
+                },
             widget=forms.TextInput(
-                    attrs={'class':'form-control',
-                        'placeholder':'Solo letras'}
+                    attrs={'class':'form-control form-control-sm'}
                     )
-        )
+    )
+    apellido = forms.CharField(
+            label='Apellido', 
+            max_length=50,
+            validators=(solo_caracteres,),
+            error_messages={
+                    'required': 'Por favor completa el campo'
+                },
+            widget=forms.TextInput(
+                    attrs={'class':'form-control form-control-sm'}
+                    )
+    )
     email = forms.EmailField(
             label='Email',
-            max_length=100,
-            required=False,
+            max_length=100, 
             validators=(validate_email,),
             error_messages={
                     'required': 'Por favor completa el campo'
                 },
-            widget=forms.TextInput(attrs={'class':'form-control','type':'email'})
+            widget=forms.TextInput(attrs={'class':'form-control form-control-sm','type':'email','placeholder':'email@dominio.com'})
         )
-    asunto = forms.CharField(
-        label='Asunto',
-        max_length=100,
-        widget=forms.TextInput(attrs={'class':'form-control'})
+    SEXO_LISTADO = (
+        ('','Seleccione'),
+        (1,'Masculino'),
+        (2,'Femenino'),
+        (3,'X'),
     )
-    mensaje = forms.CharField(
-        label='Mensaje',
-        max_length=500,
-        widget=forms.Textarea(attrs={'rows': 5,'class':'form-control'})
+    sexo = forms.ChoiceField(
+        label='Sexo',
+        choices=SEXO_LISTADO,
+        error_messages={
+                    'required': 'Por favor completa el campo'
+                },
+        widget=forms.Select(attrs={'class':'form-select form-select-sm'})
     )
-    tipo_consulta = forms.ChoiceField(
-        label='Tipo de consulta',
-        choices=TIPO_CONSULTA,
-        widget=forms.Select(attrs={'class':'form-control'})
-    )
-    suscripcion = forms.BooleanField(
-        label='Deseo suscribirme a las novedades de codo a codo',
-        required=False,
-        widget=forms.CheckboxInput(attrs={'class':'form-check-input','value':1})
-    )
-
-    def clean_mensaje(self):
-        data = self.cleaned_data['mensaje']
-        if len(data) < 10:
-            raise ValidationError("Debes especificar mejor el mensaje que nos envias")
-        return data
-
-    def clean(self):
-        cleaned_data = super().clean()
-        asunto = cleaned_data.get("asunto")
-        suscripcion = cleaned_data.get("suscripcion")
-
-        if suscripcion and asunto and "suscripcion" not in asunto:
-            msg = "Debe agregar la palabara 'suscripcion' al asunto."
-            self.add_error('asunto', msg)

@@ -1,56 +1,34 @@
 {% extends "administracion/base.html" %}
-{% block title %}Index{% endblock %}
+{% block title %}Nuevo Usuario{% endblock %}
 {% block content %}
 
-<div class="container py-3">
-    <div class="col-md-6 mb-md-0 mb-6">
-                
-        {% for message in messages %}
+<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h1 class="h2">Nuevo Usuario</h1>
+    </div>
+    <div class="container py-3">
+        <div class="col-md-6 mb-md-0 mb-6">
+            {% for message in messages %}
             <div class="alert alert-{{ message.tags }}" role="alert">
                 {{message}}
             </div>
-        {% endfor %}
-        <form id="nuevo-usuario-form" name="nuevo-usuario-form" action="{% url 'nuevo_usuario' %}" method="POST" novalidate>
-            {% csrf_token %}
-            {% comment %} {{ contacto_form }} {% endcomment %}
-            
-            {% comment %} <table>
-                {{ contacto_form.as_table }}
-            </table> {% endcomment %}
-
-            {% comment %} <ul>
-                {{ contacto_form.as_ul }}
-            </ul> {% endcomment %}
-
-            {% comment %} {{ contacto_form.as_p }} {% endcomment %}
-            <div class="row">
-                {% for campo in contacto_form %}
-                    <!--Grid column-->
-                    <div class="col-md-12">
-                        <div class="md-form mb-0">
-                            <label for="name" class="form-label">{{ campo.label }}</label>
-                            {{campo}}
-                            {% comment %} 
-                            {% if campo.field.widget.input_type == 'checkbox' %}
-                                {{campo}} 
-                                <label for="name" class="">{{ campo.label }}</label>
-                            {% else %}
-                                <label for="name" class="">{{ campo.label }}</label>
-                                {{campo}}
-                            {% endif %} {% endcomment %}
-                        </div>
-                        <div >{{campo.errors}}</div>
-                    </div>
-                    <!--Grid column-->
+            {% endfor %}
+            <form id="nuevo-usuario-form" name="nuevo-usuario-form" action="{% url 'nuevo_usuario' %}" method="POST" novalidate>
+                {% csrf_token %}    
+                {% for campo in nuevo_usuario_form %}
+                <div class="mb-3">
+                    <label class="form-label">{{ campo.label }}</label>
+                    {{campo}}
+                    <div >{{campo.errors}}</div>
+                </div>
                 {% endfor %}
-            </div>
-            <div class="text-center text-md-left mt-3">
-                <button class="btn btn-primary" type="submit">Enviar</button>
-            </div>
-        </form>
-        <div class="status"></div>
-    </div>  
-</div>
-
+                <div class="text-center text-md-left mb-3">
+                    <button class="btn btn-primary" type="submit">Enviar</button>
+                </div>
+            </form>
+            <div class="status"></div>
+        </div>  
+    </div>
+</main>
 
 {% endblock %}
