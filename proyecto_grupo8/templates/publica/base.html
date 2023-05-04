@@ -33,6 +33,7 @@
 </head>
 
 <body>
+    {% block navBar %}
     <nav class="navbar navbar-expand-md navbar-dark fixed-top">
         <div class="container-fluid">
             <a class="navbar-brand" href="../"><i class="h2 bi bi-house-heart-fill" style="color:rgb(255, 255, 255,0.75);"></i></a>
@@ -47,7 +48,7 @@
                         <a class="nav-link" href="../reservas">Reservas</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="">Reclamos</a>
+                        <a class="nav-link" href="../reclamos">Reclamos</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="">Expensas</a>
@@ -62,6 +63,7 @@
             </div>
         </div>
     </nav>
+    {% endblock navBar %}
     <center>
         {% block content %} {% endblock %}
     </center>

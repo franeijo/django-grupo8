@@ -1,0 +1,15 @@
+{% extends 'publica/base.html' %}
+{% block title %} Reclamos {%endblock title %}
+{% block content %}
+Hola {{user}}
+{% block reclamo %}
+<form action="pending" method="post">
+{% block form %}
+{{form}}
+{% endblock form %}
+<input type="submit" value="Finalizar">
+</form>
+
+
+{% endblock reclamo %}
+{% endblock content%}

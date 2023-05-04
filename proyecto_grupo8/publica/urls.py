@@ -4,5 +4,6 @@ from . import views
 
 urlpatterns = [    
     path('', views.index, name='home'),
-    path('reservas/',views.reservas,name='reservas')
+    path('reservas/',views.reservas,name='reservas'),
+    path('reclamos/',views.reclamos,name='reclamos'),
 ]
