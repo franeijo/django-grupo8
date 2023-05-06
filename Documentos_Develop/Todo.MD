@@ -8,13 +8,21 @@
 - Tabla Roles (desconozco si django los maneja)
 
 # Templates
-
+- Mi unidad
+- Informes
+- Reservas
 # Forms
-
+- Reclamos
+- Reservas
 # Views
-
+- Mi unidad
+- Informes
+- Reservas
 # URLs
-
+- Mi unidad
+- Informes
+- Reservas
 # Setting
-
+- Base de datos
+- Static Files
 # Otros
