@@ -22,6 +22,9 @@ def validate_phone(value):
 
 class ReclamoForm(forms.Form):
     
+    """
+    Campos innecesarios:
+
     nombreUsuario = forms.CharField(
         label='Nombre',
         max_length=100,
@@ -44,6 +47,20 @@ class ReclamoForm(forms.Form):
             attrs={'class':'form-control form-control-sm'}
         ),
     )
+    EDIFICIOS_HABILITADOS = (
+        ('SB',"Sanchez de Bustamante 364"),
+        ('BY','Boyacá 372'),
+        ('AC','Acuña de Figueroa 1570'),
+    )
+    locacionEdificio = forms.ChoiceField(
+        label="Estoy en...",
+        choices=EDIFICIOS_HABILITADOS,
+        error_messages={
+            'required': 'Por favor completa el campo'
+        },
+        widget=forms.Select(attrs={'class':'form-select form-select-sm'}),
+    )
+    """
     PROBLEMAS_POSIBLES = (
         ('PG',"Acreditación de transferencias"),
         ('CA',"Uso compartido de ammenities"),
@@ -62,19 +79,6 @@ class ReclamoForm(forms.Form):
         },
         widget=forms.Select(attrs={'class':'form-select form-select-sm'})
 
-    )
-    EDIFICIOS_HABILITADOS = (
-        ('SB',"Sanchez de Bustamante 364"),
-        ('BY','Boyacá 372'),
-        ('AC','Acuña de Figueroa 1570'),
-    )
-    locacionEdificio = forms.ChoiceField(
-        label="Estoy en...",
-        choices=EDIFICIOS_HABILITADOS,
-        error_messages={
-            'required': 'Por favor completa el campo'
-        },
-        widget=forms.Select(attrs={'class':'form-select form-select-sm'}),
     )
     problemasTexto = forms.CharField(
         label="detallanos tu problema:",
