@@ -70,3 +70,14 @@ class ReclamosSugerencias(models.Model):
 
     class Meta:
         db_table = "reclamos_sugerencias"
+		
+		
+class Gastos(models.Model):
+    id_gastos = models.AutoField(primary_key=True)
+    tipo_gasto = models.CharField(max_length=50)
+    concepto = models.CharField(max_length=255)
+    importe = models.FloatField()
+    id_edificio_fk = models.ForeignKey(Edificio, on_delete=models.CASCADE, db_column='id_edificio_fk')
+
+    class Meta:
+        db_table = 'gastos'

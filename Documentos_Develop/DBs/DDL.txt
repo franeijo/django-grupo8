@@ -64,4 +64,12 @@ CREATE TABLE public.reclamos_sugerencias (
 	CONSTRAINT reclamos_sugerencias_fk_1 FOREIGN KEY (uf_fk) REFERENCES public.unidad_funcional(id_uf)
 );
 
+CREATE TABLE public.gastos (
+	id_gastos serial4 NOT NULL,
+	tipo_gasto varchar NOT NULL,
+	concepto varchar NOT NULL,
+	importe _float4 NOT NULL,
+	id_edificio_fk int4 NOT NULL,
+	CONSTRAINT gastos_fk FOREIGN KEY (id_edificio_fk) REFERENCES public.edificios(id_edif)
+);
 
