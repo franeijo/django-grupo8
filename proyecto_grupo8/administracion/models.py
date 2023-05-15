@@ -1,12 +1,23 @@
 from django.db import models
 
 class Edificios(models.Model):
+    PAISES = [
+        (1,'Argentina'),
+        (2,'Bolivia'),
+        (3,'Chile'),
+        (4,'Paraguay'),
+        (5,'Uruguay'),
+    ]
+
     id_edif = models.AutoField(primary_key=True)
-    pais = models.CharField(max_length=100)
+    pais = models.IntegerField(choices=PAISES,default=1)
     pcia = models.CharField(max_length=100)
     ciudad = models.CharField(max_length=100)
     nombre = models.CharField(max_length=100, null=True)
     direccion = models.CharField(max_length=150)
+	
+	def __str__(self):
+			return self.direccion
 
     class Meta:
         db_table = "edificios"
