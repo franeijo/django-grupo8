@@ -1,6 +1,6 @@
 from django.db import models
 
-class Edificios(models.Model):
+class Edificio(models.Model):
     PAISES = [
         (1,'Argentina'),
         (2,'Bolivia'),
@@ -16,8 +16,8 @@ class Edificios(models.Model):
     nombre = models.CharField(max_length=100, null=True)
     direccion = models.CharField(max_length=150)
 	
-	def __str__(self):
-			return self.direccion
+    def __str__(self):
+        return self.direccion
 
     class Meta:
         db_table = "edificios"
@@ -40,13 +40,13 @@ class UnidadFuncional(models.Model):
     porc_b = models.CharField(max_length=2, null=True)
     porc_c = models.CharField(max_length=2, null=True)
     porc_d = models.CharField(max_length=2, null=True)
-    edif_fk = models.ForeignKey(Edificios, on_delete=models.RESTRICT, related_name="unidad_funcional")
+    edif_fk = models.ForeignKey(Edificio, on_delete=models.RESTRICT, related_name="unidad_funcional")
 
     class Meta:
         db_table = "unidad_funcional"
 
 
-class Amenities(models.Model):
+class Amenity(models.Model):
     id_ameni = models.AutoField(primary_key=True)
     descripcion = models.CharField(max_length=255, null=True)
 
@@ -55,8 +55,8 @@ class Amenities(models.Model):
 
 
 class EdifAmeni(models.Model):
-    edi_fk = models.ForeignKey(Edificios, on_delete=models.RESTRICT, related_name="edif_ameni")
-    ameni_fk = models.ForeignKey(Amenities, on_delete=models.RESTRICT, related_name="edif_ameni")
+    edi_fk = models.ForeignKey(Edificio, on_delete=models.RESTRICT, related_name="edif_ameni")
+    ameni_fk = models.ForeignKey(Amenity, on_delete=models.RESTRICT, related_name="edif_ameni")
 
     class Meta:
         db_table = "edif_ameni"
@@ -68,15 +68,15 @@ class ReservaAmeni(models.Model):
     hora_dde = models.TimeField()
     fecha_hasta = models.DateField()
     hora_hasta = models.TimeField()
-    edi_fk = models.ForeignKey(Edificios, on_delete=models.RESTRICT, related_name="reserva_ameni")
+    edi_fk = models.ForeignKey(Edificio, on_delete=models.RESTRICT, related_name="reserva_ameni")
     uf_fk = models.ForeignKey(UnidadFuncional, on_delete=models.RESTRICT, related_name="reserva_ameni")
-    ameni_fk = models.ForeignKey(Amenities, on_delete=models.RESTRICT, related_name="reserva_ameni")
+    ameni_fk = models.ForeignKey(Amenity, on_delete=models.RESTRICT, related_name="reserva_ameni")
 
     class Meta:
         db_table = "reserva_ameni"
 
 
-class ReclamosSugerencias(models.Model):
+class ReclamosSugerencia(models.Model):
     RECLAMO_SUG = [
         (1,'Suegerencia'),
         (2,'Reclamo'),
@@ -88,14 +88,14 @@ class ReclamosSugerencias(models.Model):
     tipo_rec_sug = models.IntegerField(choices=RECLAMO_SUG,default=1)
     asunto = models.CharField(max_length=100, null=True)
     descripcion = models.CharField(max_length=255, null=True)
-    edi_fk = models.ForeignKey(Edificios, on_delete=models.RESTRICT, related_name="reclamos_sugerencias")
+    edi_fk = models.ForeignKey(Edificio, on_delete=models.RESTRICT, related_name="reclamos_sugerencias")
     uf_fk = models.ForeignKey(UnidadFuncional, on_delete=models.RESTRICT, related_name="reclamos_sugerencias", null=True)
 
     class Meta:
         db_table = "reclamos_sugerencias"
 		
 		
-class Gastos(models.Model):
+class Gasto(models.Model):
     TIPO_GASTO = [
         (1,'Arreglos'),
         (2,'Abonos'),
@@ -110,7 +110,7 @@ class Gastos(models.Model):
     tipo_gasto = models.IntegerField(choices=TIPO_GASTO,default=1)
     concepto = models.CharField(max_length=255)
     importe = models.FloatField()
-    id_edificio_fk = models.ForeignKey(Edificios, on_delete=models.CASCADE, db_column='id_edificio_fk')
+    id_edificio_fk = models.ForeignKey(Edificio, on_delete=models.CASCADE, db_column='id_edificio_fk')
 
     class Meta:
         db_table = 'gastos'
