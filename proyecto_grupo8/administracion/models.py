@@ -76,7 +76,7 @@ class ReservaAmeni(models.Model):
         db_table = "reserva_ameni"
 
 
-class ReclamosSugerencia(models.Model):
+class ReclamoSugerencia(models.Model):
     RECLAMO_SUG = [
         (1,'Suegerencia'),
         (2,'Reclamo'),
