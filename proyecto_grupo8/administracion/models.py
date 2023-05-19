@@ -93,8 +93,7 @@ class ReclamoSugerencia(models.Model):
 
     class Meta:
         db_table = "reclamos_sugerencias"
-		
-		
+				
 class Gasto(models.Model):
     TIPO_GASTO = [
         (1,'Arreglos'),

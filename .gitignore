@@ -341,3 +341,4 @@ $RECYCLE.BIN/
 # vscode
 .vscode
 # End of https://www.toptal.com/developers/gitignore/api/macos,linux,python,django,windows
+proyecto_grupo8/administracion/migrations/*
