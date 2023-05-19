@@ -43,7 +43,7 @@ class UnidadFuncional(models.Model):
     edif_fk = models.ForeignKey(Edificio, on_delete=models.RESTRICT, related_name="unidad_funcional")
 
     class Meta:
-        db_table = "unidad_funcional"
+        db_table = "unidades_funcionales"
 
 
 class Amenity(models.Model):
