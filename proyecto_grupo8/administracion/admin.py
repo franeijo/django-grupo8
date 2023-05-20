@@ -4,24 +4,20 @@ from django.contrib import admin
 from .models import Edificio, UnidadFuncional, Amenity, ReservaAmeni
 
 class EdificioAdmin (admin.ModelAdmin):
-    # Campos a mostrar en la lista de registros del modelo
+        # Campos a mostrar en la lista de registros del modelo
         list_display = ['provincia', 'ciudad', 'direccion']
 
-    # Campos que se utilizarán para realizar búsquedas
+        # Campos que se utilizarán para realizar búsquedas
         search_fields = ['provincia', 'ciudad', 'direccion']
 
-    # Filtros que se mostrarán en el panel lateral
+        # Filtros que se mostrarán en el panel lateral
         list_filter = ['provincia', 'ciudad', 'direccion']
 
-    # Campos que se mostrarán en el formulario de edición (Alta/Modificación)
-<<<<<<< HEAD
-        fields = ['provincia', 'ciudad', 'direccion']    
-=======
-        fields = ['pais','pcia','ciudad','nombre', 'direccion']    
+        # Campos que se mostrarán en el formulario de edición (Alta/Modificación)
+        fields = ['provincia','ciudad', 'direccion']    
 	
-	# Define el número de elementos por página
+        # Define el número de elementos por página
         list_per_page = 10
->>>>>>> 2f6dd7a (Cambios admin y models)
         
 class UnidadFuncionalAdmin (admin.ModelAdmin):
         pass
