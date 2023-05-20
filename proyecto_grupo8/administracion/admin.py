@@ -14,7 +14,14 @@ class EdificioAdmin (admin.ModelAdmin):
         list_filter = ['provincia', 'ciudad', 'direccion']
 
     # Campos que se mostrarán en el formulario de edición (Alta/Modificación)
+<<<<<<< HEAD
         fields = ['provincia', 'ciudad', 'direccion']    
+=======
+        fields = ['pais','pcia','ciudad','nombre', 'direccion']    
+	
+	# Define el número de elementos por página
+        list_per_page = 10
+>>>>>>> 2f6dd7a (Cambios admin y models)
         
 class UnidadFuncionalAdmin (admin.ModelAdmin):
         pass
