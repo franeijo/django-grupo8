@@ -1,0 +1,83 @@
+{% extends '../base.html' %}
+
+{% block title %}Administrador Unidades{% endblock%}
+
+{% block content %}
+<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h1 class="h2">Administrador Unidades</h1>
+    </div>
+    <div class="container py-3">
+        <div class="card">
+            <div class="card-body">
+                <form action="">
+                    <div class="row">
+                        <div class="col-4">
+                                <input type="text" id="direccion" name="direccion" placeholder="Ingrese la direccion" class="form-control">
+                        </div>
+                        <div class="col-4 ">
+                            <button class="btn btn-primary">Buscar</button>
+                        </div>  
+                        <div class="col-4 text-end">
+                            <a name="" id="" class="btn btn-success" href="{% url 'unidades_nuevo' %}" role="button"> <i class="fa-solid fa-circle-plus"></i> Nuevo</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <br>
+        <div class="card">
+            <div class="card-body">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Unidad</th>
+                            <th>Piso</th>
+                            <th>Dpto</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for unidad in unidades_funcionales %}
+                            <tr>
+                                <td>{{unidad.id}}</td>
+                                <td>{{unidad.unidad_funcional}}</td>
+                                <td>{{unidad.piso}}</td>
+                                <td>{{unidad.dpto}}</td>
+                                <td>
+                                    <a href="{% url 'unidades_editar' unidad.id %}" title="Editar" class="btn btn-sm btn-warning"><i class="bi bi-pencil"></i></a>
+                                    <a href="{% url 'unidades_eliminar' unidad.id %}" title="Eliminar" class="btn btn-sm btn-danger"><i class="bi bi-trash"></i></a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+        
+                    </tbody>
+                </table>
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination">
+                        {% if page_obj.has_previous %}
+                            <li class="page-item"><a class="page-link" href="?page=1">&laquo;</a></li>
+                            <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">Ant.</a></li>
+                        {% endif %}
+                
+                        <li class="page-item">
+                            <a class="page-link">{{ page_obj.number }}</a>
+                        </li>
+                
+                        {% if page_obj.has_next %}
+                            <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">Sig.</a></li>
+                            <li class="page-item"><a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">&raquo;</a></li>
+                        {% endif %}
+                    </ul>
+                </nav>
+            </div>
+        </div>        
+    </div>
+</main>
+
+{% endblock %}
+
+
+
+    

@@ -2,7 +2,7 @@ from django import forms
 from django.forms import ValidationError
 import re
 
-from .models import Edificio
+from .models import Edificio, UnidadFuncional
 
 def solo_caracteres(value):
     if any(char.isdigit() for char in value):
@@ -74,4 +74,23 @@ class EdificioForm(forms.ModelForm):
             'provincia' : forms.Select(attrs={'class':'form-select'}),
             'ciudad' : forms.TextInput(attrs={'class':'form-control','placeholder':'Ingrese una ciudad'}),
             'direccion' : forms.TextInput(attrs={'class':'form-control','placeholder':'Ingrese una direccion'}),
+        }
+
+class UnidadFuncionalForm(forms.ModelForm):
+
+    edificio = forms.ModelChoiceField(
+        label='Edificio',
+        queryset=Edificio.objects.all(),
+        widget=forms.Select(attrs={'class': 'form-control'})
+    )
+    
+    class Meta:
+        model=UnidadFuncional
+        fields=['tipo','unidad_funcional','piso','dpto','coprop_nombre','edificio']
+        widgets = {
+            'tipo' : forms.Select(attrs={'class':'form-select'}),
+            'unidad_funcional' : forms.TextInput(attrs={'class':'form-control'}),
+            'piso' : forms.TextInput(attrs={'class':'form-control'}),
+            'dpto' : forms.TextInput(attrs={'class':'form-control'}),
+            'coprop_nombre' : forms.TextInput(attrs={'class':'form-control'}),
         }

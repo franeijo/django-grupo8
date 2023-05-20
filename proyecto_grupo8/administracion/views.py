@@ -1,8 +1,8 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from administracion.forms import NuevoUsuario
-from administracion.models import Edificio
-from administracion.forms import EdificioForm
+from administracion.models import Edificio, UnidadFuncional
+from administracion.forms import EdificioForm, UnidadFuncionalForm
 from datetime import datetime
 from django.contrib import messages
 from django.conf import settings
@@ -54,4 +54,28 @@ class EdificioDeleteView(DeleteView):
     model = Edificio
     template_name = 'administracion/edificios/eliminar.html'
     success_url = reverse_lazy('edificios_index')
+
+
+class UnidadFuncionalListView(ListView):
+    model = UnidadFuncional
+    context_object_name = 'unidades_funcionales'
+    template_name= 'administracion/unidades/index.html'
+    paginate_by = 8
+
+class UnidadFuncionalCreateView(CreateView):
+    model = UnidadFuncional
+    form_class = UnidadFuncionalForm
+    template_name = 'administracion/unidades/nuevo.html'
+    success_url = reverse_lazy('unidades_index')
+
+class UnidadFuncionalUpdateView(UpdateView):
+    model = UnidadFuncional
+    template_name = 'administracion/unidades/editar.html'
+    success_url = reverse_lazy('unidades_index')
+    form_class = UnidadFuncionalForm
+    
+class UnidadFuncionalDeleteView(DeleteView):
+    model = UnidadFuncional
+    template_name = 'administracion/unidades/eliminar.html'
+    success_url = reverse_lazy('unidades_index')
 
