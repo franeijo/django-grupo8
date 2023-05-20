@@ -1,19 +1,33 @@
 from django.db import models
 
 class Edificio(models.Model):
-    PAISES = [
-        (1,'Argentina'),
-        (2,'Bolivia'),
-        (3,'Chile'),
-        (4,'Paraguay'),
-        (5,'Uruguay'),
-    ]
 
-    id_edif = models.AutoField(primary_key=True)
-    pais = models.IntegerField(choices=PAISES,default=1)
-    pcia = models.CharField(max_length=100)
-    ciudad = models.CharField(max_length=100)
-    nombre = models.CharField(max_length=100, null=True)
+    PROVINCIAS = [
+            (1,'Ciudad Autonoma de Buenos Aires'),
+            (2,'Provincia de Buenos Aires'),
+            (3,'Misiones'),
+            (4,'San Luis'),
+            (5,'San Juan'),
+            (6,'Entre Rios'),
+            (7,'Santa Cruz'),
+            (8,'Rio Negro'),
+            (9,'Chubut'),
+            (10,'Cordoba'),
+            (11,'Mendoza'),
+            (12,'La Rioja'),
+            (13,'Catamarca'),
+            (14,'La Pampa'),
+            (15,'Santiago del Estero'),
+            (16,'Corrientes'),
+            (17,'Santa Fe'),
+            (18,'Tucuman'),
+            (19,'Neuquen'),
+            (20,'Chaco')
+        ]
+
+    id = models.AutoField(primary_key=True)
+    provincia = models.IntegerField(choices=PROVINCIAS,default=1)
+    ciudad = models.CharField(max_length=150)
     direccion = models.CharField(max_length=150)
 	
     def __str__(self):
@@ -30,7 +44,7 @@ class UnidadFuncional(models.Model):
         (3,'Local'),
         (4,'Otro'),
     ]
-    id_uf = models.AutoField(primary_key=True)
+    id = models.AutoField(primary_key=True)
     unidad_funcional = models.CharField(max_length=4)
     uf_tipo = models.IntegerField(choices=TIPO_UF,default=1)
     piso = models.CharField(max_length=10)
@@ -47,7 +61,7 @@ class UnidadFuncional(models.Model):
 
 
 class Amenity(models.Model):
-    id_ameni = models.AutoField(primary_key=True)
+    id = models.AutoField(primary_key=True)
     descripcion = models.CharField(max_length=255, null=True)
 
     class Meta:
@@ -55,7 +69,7 @@ class Amenity(models.Model):
 
 
 class EdifAmeni(models.Model):
-    edi_fk = models.ForeignKey(Edificio, on_delete=models.RESTRICT, related_name="edif_ameni")
+    edif_fk = models.ForeignKey(Edificio, on_delete=models.RESTRICT, related_name="edif_ameni")
     ameni_fk = models.ForeignKey(Amenity, on_delete=models.RESTRICT, related_name="edif_ameni")
 
     class Meta:
@@ -63,9 +77,9 @@ class EdifAmeni(models.Model):
 
 
 class ReservaAmeni(models.Model):
-    id_reserva = models.AutoField(primary_key=True)
-    fecha_dde = models.DateField()
-    hora_dde = models.TimeField()
+    id = models.AutoField(primary_key=True)
+    fecha_desde = models.DateField()
+    hora_desde = models.TimeField()
     fecha_hasta = models.DateField()
     hora_hasta = models.TimeField()
     edi_fk = models.ForeignKey(Edificio, on_delete=models.RESTRICT, related_name="reserva_ameni")
@@ -73,7 +87,7 @@ class ReservaAmeni(models.Model):
     ameni_fk = models.ForeignKey(Amenity, on_delete=models.RESTRICT, related_name="reserva_ameni")
 
     class Meta:
-        db_table = "reserva_ameni"
+        db_table = "reservas"
 
 
 class ReclamoSugerencia(models.Model):
@@ -84,7 +98,7 @@ class ReclamoSugerencia(models.Model):
         (4,'Otro'),
     ]
 
-    id_rec_sug = models.AutoField(primary_key=True)
+    id = models.AutoField(primary_key=True)
     tipo_rec_sug = models.IntegerField(choices=RECLAMO_SUG,default=1)
     asunto = models.CharField(max_length=100, null=True)
     descripcion = models.CharField(max_length=255, null=True)
@@ -105,7 +119,7 @@ class Gasto(models.Model):
         (7,'Otros'),
     ]
 
-    id_gastos = models.AutoField(primary_key=True)
+    id = models.AutoField(primary_key=True)
     tipo_gasto = models.IntegerField(choices=TIPO_GASTO,default=1)
     concepto = models.CharField(max_length=255)
     importe = models.FloatField()

@@ -2,6 +2,8 @@ from django import forms
 from django.forms import ValidationError
 import re
 
+from .models import Edificio
+
 def solo_caracteres(value):
     if any(char.isdigit() for char in value):
         raise ValidationError('El nombre no puede contener números. %(valor)s',
@@ -61,3 +63,15 @@ class NuevoUsuario(forms.Form):
                 },
         widget=forms.Select(attrs={'class':'form-select form-select-sm'})
     )
+
+
+class EdificioForm(forms.ModelForm):
+    class Meta:
+        model=Edificio
+        fields='__all__'
+
+        widgets = {
+            'provincia' : forms.Select(attrs={'class':'form-select'}),
+            'ciudad' : forms.TextInput(attrs={'class':'form-control','placeholder':'Ingrese una ciudad'}),
+            'direccion' : forms.TextInput(attrs={'class':'form-control','placeholder':'Ingrese una direccion'}),
+        }

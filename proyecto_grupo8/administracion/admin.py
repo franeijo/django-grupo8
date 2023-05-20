@@ -1,22 +1,20 @@
 from django.contrib import admin
 
 # Register your models here.
-from .models import Edificio, UnidadFuncional, Amenity
-from .models import ReservaAmeni, ReclamoSugerencia, Gasto
-
+from .models import Edificio, UnidadFuncional, Amenity, ReservaAmeni
 
 class EdificioAdmin (admin.ModelAdmin):
     # Campos a mostrar en la lista de registros del modelo
-        list_display = ['nombre', 'direccion', 'ciudad']
+        list_display = ['provincia', 'ciudad', 'direccion']
 
     # Campos que se utilizarán para realizar búsquedas
-        search_fields = ['nombre', 'direccion', 'ciudad']
+        search_fields = ['provincia', 'ciudad', 'direccion']
 
     # Filtros que se mostrarán en el panel lateral
-        list_filter = ['ciudad', 'direccion']
+        list_filter = ['provincia', 'ciudad', 'direccion']
 
     # Campos que se mostrarán en el formulario de edición (Alta/Modificación)
-        fields = ['pais','pcia','ciudad','nombre', 'direccion']    
+        fields = ['provincia', 'ciudad', 'direccion']    
         
 class UnidadFuncionalAdmin (admin.ModelAdmin):
         pass
