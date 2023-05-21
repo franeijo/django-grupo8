@@ -25,45 +25,36 @@
       <div class="row">
         <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-body-tertiary sidebar collapse">
           <div class="position-sticky pt-3 sidebar-sticky">
-            <ul class="list-unstyled ps-0">
-              <li class="mb-1">
-                <button class="btn btn-home d-inline-flex align-items-center rounded border-0 collapsed">
+            <ul class="nav flex-column">
+              <li class="nav-item">
+                <a class="nav-link" aria-current="page" href="/">
+                  <span data-feather="target" class="align-text-bottom"></span>
                   Home
-                </button>
+                </a>
               </li>
-              <li class="mb-1">
-                <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed" data-bs-toggle="collapse" data-bs-target="#consorcios-collapse" aria-expanded="false">
+              <li class="nav-item">
+                <a class="nav-link" href="/reservas">
+                  <span data-feather="home" class="align-text-bottom"></span>
                   Reservas
-                </button>
-                <div class="collapse" id="consorcios-collapse">
-                  <ul class="btn-toggle-nav list-unstyled fw-normal pb-1">
-                    <li><a href="/nueva_reserva" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Nueva Reserva</a></li>
-                    <li><a href="/ver_reservas" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Ver Reservas</a></li>
-                  </ul>
-                </div>
+                </a>
               </li>
-              <li class="mb-1">
-                <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed" data-bs-toggle="collapse" data-bs-target="#unidades-collapse" aria-expanded="false">
+              <li class="nav-item">
+                <a class="nav-link" href="/reclamos">
+                  <span data-feather="alert-triangle" class="align-text-bottom"></span>
                   Reclamos
-                </button>
-                <div class="collapse" id="unidades-collapse">
-                  <ul class="btn-toggle-nav list-unstyled fw-normal pb-1">
-                    <li><a href="/nuevo_reclamo" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Nuevo Reclamo</a></li>
-                    <li><a href="/ver_reclamos" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Ver Reclamos</a></li>
-                  </ul>
-                </div>
+                </a>
               </li>
-              <li class="border-top my-3"></li>
-              <li class="mb-1">
-                <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed" data-bs-toggle="collapse" data-bs-target="#cuenta-collapse" aria-expanded="false">
-                  Mi Cuenta
-                </button>
-                <div class="collapse" id="cuenta-collapse">
-                  <ul class="btn-toggle-nav list-unstyled fw-normal pb-1">
-                    <li><a href="#" class="link-dark d-inline-flex text-decoration-none rounded">Perfil</a></li>
-                    <li><a href="#" class="link-dark d-inline-flex text-decoration-none rounded">Salir</a></li>
-                  </ul>
-                </div>
+              <li class="nav-item">
+                <a class="nav-link" href="/contactenos">
+                  <span data-feather="send" class="align-text-bottom"></span>
+                  Contactenos
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">
+                  <span data-feather="log-out" class="align-text-bottom"></span>
+                  Salir
+                </a>
               </li>
             </ul>
           </div>

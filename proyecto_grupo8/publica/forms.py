@@ -21,46 +21,6 @@ def validate_phone(value):
     return value
 
 class ReclamoForm(forms.Form):
-    
-    """
-    Campos innecesarios:
-
-    nombreUsuario = forms.CharField(
-        label='Nombre',
-        max_length=100,
-        validators=(solo_caracteres,),
-        error_messages={
-            'required': 'Por favor completa el campo'
-        },
-        widget=forms.TextInput(
-            attrs={'class':"form-control form-control-sm"}
-        ),
-    )
-    apellidoUsuario = forms.CharField(
-        label='Apellido',
-        max_length=100,
-        validators=(solo_caracteres,),
-        error_messages={
-            'required': 'Por favor completa el campo'
-        },
-        widget=forms.TextInput(
-            attrs={'class':'form-control form-control-sm'}
-        ),
-    )
-    EDIFICIOS_HABILITADOS = (
-        ('SB',"Sanchez de Bustamante 364"),
-        ('BY','Boyacá 372'),
-        ('AC','Acuña de Figueroa 1570'),
-    )
-    locacionEdificio = forms.ChoiceField(
-        label="Estoy en...",
-        choices=EDIFICIOS_HABILITADOS,
-        error_messages={
-            'required': 'Por favor completa el campo'
-        },
-        widget=forms.Select(attrs={'class':'form-select form-select-sm'}),
-    )
-    """
     PROBLEMAS_POSIBLES = (
         ('PG',"Acreditación de transferencias"),
         ('CA',"Uso compartido de ammenities"),
@@ -71,6 +31,7 @@ class ReclamoForm(forms.Form):
         ('IS',"Inseguridad"),
         ('OT',"Otros (aclarar)"),
     )
+
     problemasOpciones = forms.ChoiceField(
         label='Tengo un problema con...',
         choices=PROBLEMAS_POSIBLES,
@@ -84,7 +45,7 @@ class ReclamoForm(forms.Form):
         label="detallanos tu problema:",
         widget=forms.Textarea(attrs={"rows":10,"cols":50}),
         max_length=500,
-        )
+    )
     contactoUsuario = forms.CharField(
         label="numero de telefono:",
         validators=(validate_phone,),
@@ -92,7 +53,7 @@ class ReclamoForm(forms.Form):
             'required':'Por favor completa el campo'
         },
         widget=forms.TextInput(attrs={'class':'form-control form-control-sm','type':'tel','placeholder':'+1111111111'})
-        )
+    )
     emailUsuario = forms.EmailField(
         label='Email',
         max_length=100, 
@@ -102,3 +63,37 @@ class ReclamoForm(forms.Form):
         },
         widget=forms.TextInput(attrs={'class':'form-control form-control-sm','type':'email','placeholder':'email@dominio.com'}),
     )
+
+class ContactoForm(forms.Form):
+
+    nombre = forms.CharField(
+            label='Nombre', 
+            max_length=50,
+            validators=(solo_caracteres,),
+            widget=forms.TextInput(
+                    attrs={'class':'form-control'}
+            )
+        )
+    
+    email = forms.EmailField(
+            label='Email',
+            max_length=100,
+            required=True,
+            error_messages={
+                    'required': 'Por favor completa el campo'
+                },
+            widget=forms.TextInput(attrs={'class':'form-control','type':'email'})
+        )
+    
+    asunto = forms.CharField(
+        label='Asunto',
+        max_length=100,
+        widget=forms.TextInput(attrs={'class':'form-control'})
+    )
+
+    mensaje = forms.CharField(
+        label='Mensaje',
+        max_length=500,
+        widget=forms.Textarea(attrs={'rows': 4,'class':'form-control'})
+    )
+    

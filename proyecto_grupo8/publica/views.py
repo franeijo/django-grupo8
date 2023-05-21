@@ -1,7 +1,9 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from publica.forms import ReclamoForm
+from publica.forms import ReclamoForm, ContactoForm
 from django.contrib import messages
+from django.core.mail import send_mail
+from django.conf import settings
 
 def index(request):
     return render(request, "publica/index.html")
@@ -25,3 +27,19 @@ def reclamos(request):
     userInfo =('Armando','Bardo')
     context = {'reclamo_form':reclamo_form,'userInfo':userInfo}
     return render(request, "publica/reclamos.html",context)
+
+def contactenos(request):
+    if(request.method=='POST'):
+        contacto_form = ContactoForm(request.POST)
+        if(contacto_form.is_valid()):  
+            messages.success(request,'Hemos recibido tus datos')  
+            contacto_form = ContactoForm()         
+        else:
+            messages.warning(request,'Por favor revisa los errores en el formulario')
+    else:
+        contacto_form = ContactoForm()
+    
+    context = {                            
+        'contacto_form': contacto_form
+    }
+    return render(request,'publica/contactenos.html',context)
