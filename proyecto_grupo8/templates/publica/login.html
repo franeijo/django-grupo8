@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en" data-bs-theme="auto">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <title>Entre Vecinos - Login</title>
+    <link href="/static/bootstrap.min.css" rel="stylesheet">
+    <link href="/static/login.css" rel="stylesheet">
+  </head>
+  <body class="text-center">  
+    <main class="form-signin w-100 m-auto">
+      <div class="col-md-12">
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }}" role="alert">
+                {{message}}
+            </div>
+        {% endfor %}
+        {% if form.non_field_errors %}
+            {% for error in form.non_field_errors %} 
+                <div class="alert alert-danger">
+                    <strong>{{ error|escape }}</strong>
+                </div>
+            {% endfor %}
+        {% endif %}
+      </div>
+      <form method="POST">
+        {% csrf_token %}
+        <img class="mb-4" src="/static/logo.png" alt="" width="300">
+
+        <div class="form-floating">
+          {% if form.username.errors %}
+          <input type="text" class="form-control" id="{{ form.username.auto_id }}" name="{{ form.username.name }}" class="form-control form-control-lg"
+                        placeholder="Ingresa el nombre de usuario" value="{{ form.username.value | default:'' }}" />
+          <label for="{{ form.username.auto_id }}" style="color: darksalmon">Usuario Obligatorio</label>
+          {% else %}
+          <input type="text" class="form-control" id="{{ form.username.auto_id }}" name="{{ form.username.name }}" class="form-control form-control-lg"
+                        placeholder="Ingresa el nombre de usuario" value="{{ form.username.value | default:'' }}" />
+          <label for="{{ form.username.auto_id }}">Usuario</label>
+          {% endif %}
+        </div>
+        {% if form.password.errors %}
+        <div class="form-floating">
+          <input type="password" class="form-control" id="{{ form.password.auto_id }}" name="{{ form.password.name }}" class="form-control form-control-lg"
+                            placeholder="Ingresa la contraseña" value="{{ form.password.value | default:'' }}" />
+          <label for="{{ form.password.auto_id }}" style="color:darksalmon">Contraseña Obligatoria</label>
+        </div>
+        {% else %}
+        <div class="form-floating">
+          <input type="password" class="form-control" id="{{ form.password.auto_id }}" name="{{ form.password.name }}" class="form-control form-control-lg"
+                            placeholder="Ingresa la contraseña" value="{{ form.password.value | default:'' }}" />
+          <label for="{{ form.password.auto_id }}">Contraseña</label>
+        </div>
+        {% endif %}
+        <button class="w-100 btn btn-lg btn-primary" type="submit">Log in</button>
+        <p class="mt-5 mb-3 text-body-secondary">&copy; Codo a Codo - 2023</p>
+      </form>
+    </main>    
+  </body>
+</html>

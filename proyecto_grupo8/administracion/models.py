@@ -1,4 +1,6 @@
 from django.db import models
+from django.contrib.auth.models import AbstractUser
+
 
 class Edificio(models.Model):
 
@@ -78,7 +80,6 @@ class ReservaAmeni(models.Model):
     hora_desde = models.TimeField()
     fecha_hasta = models.DateField()
     hora_hasta = models.TimeField()
-    edificio = models.ForeignKey(Edificio, on_delete=models.RESTRICT)
     unidad_funcional = models.ForeignKey(UnidadFuncional, on_delete=models.RESTRICT)
     amenity = models.ForeignKey(Amenity, on_delete=models.RESTRICT)
 
@@ -121,4 +122,14 @@ class Gasto(models.Model):
 
     class Meta:
         db_table = 'gastos'
+
+class Usuario(AbstractUser):
+    pass
+
+class Perfil(models.Model):
+    """MODELO QUE PERMITE DEL USER MODEL DE DJANGO PARA AGREGERLE CAMPOS EXTRAS"""
+    user = models.OneToOneField(Usuario, on_delete=models.CASCADE)
+    telefono = models.CharField(max_length=20,verbose_name='Teléfono')
+    domicilio = models.CharField(max_length=20,verbose_name='Domicilio')
+    unidad_funcional = models.ForeignKey(UnidadFuncional, on_delete=models.RESTRICT)
         

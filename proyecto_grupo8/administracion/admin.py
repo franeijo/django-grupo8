@@ -1,7 +1,10 @@
 from django.contrib import admin
 
 # Register your models here.
-from .models import Edificio, UnidadFuncional, Amenity, ReservaAmeni
+from .models import Edificio, UnidadFuncional, Amenity, ReservaAmeni, Usuario
+from django.contrib.auth.models import Group
+from django.contrib.auth.admin import UserAdmin, GroupAdmin
+
 
 class EdificioAdmin (admin.ModelAdmin):
         # Campos a mostrar en la lista de registros del modelo
@@ -25,9 +28,11 @@ class AmenityAdmin(admin.ModelAdmin):
         pass
 class ReservaAmenityAdmin(admin.ModelAdmin):
         pass
+
     
 admin.site.register(Edificio, EdificioAdmin)
 admin.site.register(UnidadFuncional, UnidadFuncionalAdmin)
 admin.site.register(Amenity, AmenityAdmin)
 admin.site.register(ReservaAmeni, ReservaAmenityAdmin)
+admin.site.register(Usuario,UserAdmin)
 

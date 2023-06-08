@@ -12,9 +12,18 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 from django.http import HttpResponseRedirect
 
+from django.contrib.auth.decorators import login_required
+from django.contrib.admin.views.decorators import staff_member_required
+from django.utils.decorators import method_decorator
+
+
+@login_required
+@staff_member_required
 def index(request):
     return render(request, "administracion/index.html")
 
+@login_required
+@staff_member_required
 def nuevo_usuario(request):
     if(request.method=='POST'):
         nuevo_usuario_form = NuevoUsuario(request.POST)
@@ -31,6 +40,7 @@ def nuevo_usuario(request):
     return render(request, "administracion/nuevo_usuario.html",context)
 
 
+@method_decorator(staff_member_required(login_url='/accounts/login/'), name="dispatch")
 class EdificioListView(ListView):
     model = Edificio
     context_object_name = 'edificios'
@@ -49,7 +59,8 @@ class EdificioUpdateView(UpdateView):
     template_name = 'administracion/edificios/editar.html'
     success_url = reverse_lazy('edificios_index')
     form_class = EdificioForm
-    
+
+
 class EdificioDeleteView(DeleteView):
     model = Edificio
     template_name = 'administracion/edificios/eliminar.html'
@@ -62,18 +73,21 @@ class UnidadFuncionalListView(ListView):
     template_name= 'administracion/unidades/index.html'
     paginate_by = 8
 
+
 class UnidadFuncionalCreateView(CreateView):
     model = UnidadFuncional
     form_class = UnidadFuncionalForm
     template_name = 'administracion/unidades/nuevo.html'
     success_url = reverse_lazy('unidades_index')
 
+
 class UnidadFuncionalUpdateView(UpdateView):
     model = UnidadFuncional
     template_name = 'administracion/unidades/editar.html'
     success_url = reverse_lazy('unidades_index')
     form_class = UnidadFuncionalForm
-    
+
+
 class UnidadFuncionalDeleteView(DeleteView):
     model = UnidadFuncional
     template_name = 'administracion/unidades/eliminar.html'
