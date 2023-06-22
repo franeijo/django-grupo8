@@ -98,7 +98,7 @@ def booking_submit(request):
     if request.method == 'POST':
         horario_reserva = request.POST.get("horario_reserva")
         
-        if Reserva.objects.filter(fecha=fecha, horario=horario_reserva).count() < 1:
+        if Reserva.objects.filter(fecha=fecha, horario=horario_reserva, amenity=amenity).count() < 1:
             Reserva.objects.get_or_create(
                 unidad_funcional = UnidadFuncional.objects.get(usuario = user),
                 amenity = Amenity.objects.get(pk = id_amenity),
