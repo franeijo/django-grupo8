@@ -1,10 +1,5 @@
 from django.contrib import admin
-
-# Register your models here.
-from .models import Edificio, UnidadFuncional, Amenity, ReservaAmeni, Usuario
-from django.contrib.auth.models import Group
-from django.contrib.auth.admin import UserAdmin, GroupAdmin
-
+from .models import *
 
 class EdificioAdmin (admin.ModelAdmin):
         # Campos a mostrar en la lista de registros del modelo
@@ -23,16 +18,27 @@ class EdificioAdmin (admin.ModelAdmin):
         list_per_page = 10
         
 class UnidadFuncionalAdmin (admin.ModelAdmin):
-        pass
+        # Campos a mostrar en la lista de registros del modelo
+        list_display = ['unidad_funcional', 'piso', 'dpto', 'edificio', 'usuario']
+        
 class AmenityAdmin(admin.ModelAdmin):
-        pass
-class ReservaAmenityAdmin(admin.ModelAdmin):
-        pass
+        list_display = ['descripcion', 'horarios']
 
-    
+class ReservaAdmin(admin.ModelAdmin):
+        list_display = ['fecha', 'horario', 'numero_unidad', 'tipo_amenity']
+
+        def numero_unidad(self, obj):
+                return obj.unidad_funcional.unidad_funcional
+        
+        def tipo_amenity(self, obj):
+                return obj.amenity.descripcion
+        
+class ReclamoAdmin(admin.ModelAdmin):
+        list_display = ['fecha', 'asunto', 'descripcion', 'usuario']
+
 admin.site.register(Edificio, EdificioAdmin)
 admin.site.register(UnidadFuncional, UnidadFuncionalAdmin)
 admin.site.register(Amenity, AmenityAdmin)
-admin.site.register(ReservaAmeni, ReservaAmenityAdmin)
-admin.site.register(Usuario,UserAdmin)
+admin.site.register(Reserva, ReservaAdmin)
+admin.site.register(ReclamoSugerencia, ReclamoAdmin)
 

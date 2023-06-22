@@ -1,9 +1,12 @@
-{% for campo in form %}
-    <div class="form-group">
-        <label>{{campo.label}}</label>
+{% for campo in formulario %}
+    <div class="mb-3">
+        {% if campo.errors %}
+            <label class="form-label text-danger">{{campo.label}}</label>
+        {% else %}
+        <label class="form-label">{{campo.label}}</label>
+        {% endif %}
         {{campo}}
     </div>
-    <div>{{campo.errors}}</div>
 {% endfor %}
 <div class="row mt-3">
     <div class="col-12">

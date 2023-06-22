@@ -11,14 +11,8 @@
         <div class="card">
             <div class="card-body">
                 <form action="">
-                    <div class="row">
-                        <div class="col-4">
-                                <input type="text" id="direccion" name="direccion" placeholder="Ingrese la direccion" class="form-control">
-                        </div>
-                        <div class="col-4 ">
-                            <button class="btn btn-primary">Buscar</button>
-                        </div>  
-                        <div class="col-4 text-end">
+                    <div class="row"> 
+                        <div class="col-1 text-end">
                             <a name="" id="" class="btn btn-success" href="{% url 'edificios_nuevo' %}" role="button"> <i class="fa-solid fa-circle-plus"></i> Nuevo</a>
                         </div>
                     </div>
@@ -54,23 +48,6 @@
         
                     </tbody>
                 </table>
-                <nav aria-label="Page navigation example">
-                    <ul class="pagination">
-                        {% if page_obj.has_previous %}
-                            <li class="page-item"><a class="page-link" href="?page=1">&laquo;</a></li>
-                            <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">Ant.</a></li>
-                        {% endif %}
-                
-                        <li class="page-item">
-                            <a class="page-link">{{ page_obj.number }}</a>
-                        </li>
-                
-                        {% if page_obj.has_next %}
-                            <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">Sig.</a></li>
-                            <li class="page-item"><a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">&raquo;</a></li>
-                        {% endif %}
-                    </ul>
-                </nav>
             </div>
         </div>        
     </div>

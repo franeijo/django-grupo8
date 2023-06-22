@@ -1,0 +1,33 @@
+{% extends "publica/base.html" %}
+{% block title %}Index{% endblock %}
+{% block content %}
+
+<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+      <h1 class="h2">Home</h1>
+    </div>
+
+    <div class="container py-3">
+        <div class="col-md-6 mb-md-0 mb-6">
+            <div class="mb-3">
+                <p class="fs-6 fw-semibold">Seleccione el horario de la reserva.</p>
+            </div>
+            <form method="post" action="{% url 'reservas_nueva2' %}" class="me-2 ms-2" required>
+                {% csrf_token %}
+                <div class="form-group">
+                <label for="horario_reserva">Horario</label>
+                <select class="form-select" name="horario_reserva" id="horario_reserva">
+                    {% for horario in horarios_disponibles %}
+                        <option value="{{horario}}">{{horario}}</option>
+                    {% endfor %}
+                </select>
+                </div>
+                <a href="../nueva" class="btn btn-primary text-white mt-3">Volver</a>
+                <button type="submit" class="btn btn-primary text-white mt-3">Reservar</button>
+        
+            </form>
+        </div>
+    </div>
+</main>
+
+{% endblock %}

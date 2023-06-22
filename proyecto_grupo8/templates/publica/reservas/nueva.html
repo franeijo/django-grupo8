@@ -1,0 +1,50 @@
+
+{% extends "publica/base.html" %}
+{% block title %}Index{% endblock %}
+{% block content %}
+
+<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+      <h2 class="h2">Nueva Reserva</h2>
+    </div>
+
+    <div class="container py-3">
+        <div class="col-md-7 mb-md-0 mb-7">
+            <div class="mb-3">
+                <p class="fs-6 fw-semibold">Seleccione fecha y amenity para realizar una nueva reserva.</p>
+            </div>
+            <form method="post" action="{% url 'reservas_nueva' %}" class="me-2 ms-2" required>
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label for="amenity" class="form-label">Seleccionar Amenity:</label>
+                    <select class="form-select" name="amenity" id="amenity">
+                        {% for amenity in amenities %}
+                            <option value={{amenity.id}}>{{amenity.descripcion}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="fecha" class="form-label">Seleccione el dia:</label>
+                    <input class="form-control" type="date" name="fecha" min="" max="" required pattern="\d{4}-\d{2}-\d{2}">
+                    <script>
+                        var max = new Date()
+                        var min = (new Date()).toISOString().split('T')[0];
+                        max.setDate(max.getDate() + 30);
+                        max = max.toISOString().split('T')[0];
+                        document.getElementsByName("fecha")[0].setAttribute('min', min);
+                        document.getElementsByName("fecha")[0].setAttribute('max', max);
+                        document.getElementsByName("fecha")[0].valueAsDate = new Date();
+
+                    </script>
+                </div>
+                    <br/>
+                    <button type="submit" class="btn btn-primary text-white">Continuar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</main>
+
+{% endblock %}
+
+

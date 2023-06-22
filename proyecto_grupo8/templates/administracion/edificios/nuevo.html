@@ -7,6 +7,22 @@
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
         <h1 class="h2">Nuevo Edificio</h1>
     </div>
+    {% if messages %}
+        {% for message in messages  %}
+            {% if message.tags == 'error' %}
+                <script>
+                    Swal.fire({
+                        position: 'bottom-end',
+                        icon: 'error',
+                        toast: true,
+                        showConfirmButton: false,
+                        title: 'Por favor, revise el formulario.',
+                        timer:2000
+                    })
+                </script>
+            {% endif %}
+        {% endfor %}
+    {% endif %}
     <div class="container py-3">
         <div class="col-md-6 mb-md-0 mb-6">
             <form action="" method="post" novalidate>

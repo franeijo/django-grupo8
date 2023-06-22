@@ -1,0 +1,45 @@
+{% extends 'administracion/base.html' %}
+
+{% block title %}Administrador Reservas{% endblock%}
+
+{% block content %}
+<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h1 class="h2">Administrador Reservas</h1>
+    </div>
+    <div class="container py-3">
+        <div class="card">
+            <div class="card-body">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Fecha</th>
+                            <th>Horario</th>
+                            <th>Unidad Funcional</th>
+                            <th>Amenity</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for reserva in reservas %}
+                            <tr>
+                                <td>{{reserva.id}}</td>
+                                <td>{{reserva.fecha}}</td>
+                                <td>{{reserva.horario}}</td>
+                                <td>{{reserva.unidad_funcional.unidad_funcional}}</td>
+                                <td>{{reserva.amenity.descripcion}}</td>
+                            </tr>
+                        {% endfor %}
+        
+                    </tbody>
+                </table>
+            </div>
+        </div>        
+    </div>
+</main>
+
+{% endblock %}
+
+
+
+    

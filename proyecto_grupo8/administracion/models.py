@@ -1,6 +1,6 @@
 from django.db import models
-from django.contrib.auth.models import AbstractUser
-
+from django.contrib.auth.models import User
+from datetime import datetime
 
 class Edificio(models.Model):
 
@@ -39,22 +39,11 @@ class Edificio(models.Model):
 
 
 class UnidadFuncional(models.Model):
-    TIPO_UF = [
-        (1,'Departamento'),
-        (2,'Cochera'),
-        (3,'Local'),
-        (4,'Otro'),
-    ]
     unidad_funcional = models.CharField(max_length=4)
-    tipo = models.IntegerField(choices=TIPO_UF,default=1)
     piso = models.CharField(max_length=10)
     dpto = models.CharField(max_length=5)
-    coprop_nombre = models.CharField(max_length=150)
-    porc_a = models.CharField(max_length=2, null=True)
-    porc_b = models.CharField(max_length=2, null=True)
-    porc_c = models.CharField(max_length=2, null=True)
-    porc_d = models.CharField(max_length=2, null=True)
     edificio = models.ForeignKey(Edificio, on_delete=models.RESTRICT)
+    usuario = models.ForeignKey(User, on_delete=models.RESTRICT)
 
     class Meta:
         db_table = "unidades_funcionales"
@@ -62,34 +51,33 @@ class UnidadFuncional(models.Model):
 
 class Amenity(models.Model):
     descripcion = models.CharField(max_length=255, null=True)
+    horarios = models.CharField(max_length=255, null=True)
 
     class Meta:
         db_table = "amenities"
 
 
-class EdifAmeni(models.Model):
+class EdificioAmenity(models.Model):
     edificio = models.ForeignKey(Edificio, on_delete=models.RESTRICT)
     amenity = models.ForeignKey(Amenity, on_delete=models.RESTRICT)
 
     class Meta:
-        db_table = "edif_ameni"
+        db_table = "edificios_amenities"
 
 
-class ReservaAmeni(models.Model):
-    fecha_desde = models.DateField()
-    hora_desde = models.TimeField()
-    fecha_hasta = models.DateField()
-    hora_hasta = models.TimeField()
+class Reserva(models.Model):
+    fecha = models.DateField(default=datetime.now)
+    horario = models.CharField()
     unidad_funcional = models.ForeignKey(UnidadFuncional, on_delete=models.RESTRICT)
     amenity = models.ForeignKey(Amenity, on_delete=models.RESTRICT)
-
+    
     class Meta:
         db_table = "reservas"
 
 
 class ReclamoSugerencia(models.Model):
     RECLAMO_SUG = [
-        (1,'Suegerencia'),
+        (1,'Sugerencia'),
         (2,'Reclamo'),
         (3,'Felicitaciones'),
         (4,'Otro'),
@@ -98,38 +86,9 @@ class ReclamoSugerencia(models.Model):
     tipo = models.IntegerField(choices=RECLAMO_SUG,default=1)
     asunto = models.CharField(max_length=100, null=True)
     descripcion = models.CharField(max_length=255, null=True)
-    edificio = models.ForeignKey(Edificio, on_delete=models.RESTRICT)
-    unidad_funcional = models.ForeignKey(UnidadFuncional, on_delete=models.RESTRICT)
+    usuario = models.ForeignKey(User, on_delete=models.RESTRICT)
+    fecha = models.DateField(default=datetime.now)
 
     class Meta:
         db_table = "reclamos_sugerencias"
-				
-class Gasto(models.Model):
-    TIPO_GASTO = [
-        (1,'Arreglos'),
-        (2,'Abonos'),
-        (3,'Sueldos'),
-        (4,'Insumos'),
-        (5,'Suplencias'),
-        (6,'Extraordinarios'),
-        (7,'Otros'),
-    ]
 
-    tipo = models.IntegerField(choices=TIPO_GASTO,default=1)
-    concepto = models.CharField(max_length=255)
-    importe = models.FloatField()
-    edificio = models.ForeignKey(Edificio, on_delete=models.CASCADE)
-
-    class Meta:
-        db_table = 'gastos'
-
-class Usuario(AbstractUser):
-    pass
-
-class Perfil(models.Model):
-    """MODELO QUE PERMITE DEL USER MODEL DE DJANGO PARA AGREGERLE CAMPOS EXTRAS"""
-    user = models.OneToOneField(Usuario, on_delete=models.CASCADE)
-    telefono = models.CharField(max_length=20,verbose_name='Teléfono')
-    domicilio = models.CharField(max_length=20,verbose_name='Domicilio')
-    unidad_funcional = models.ForeignKey(UnidadFuncional, on_delete=models.RESTRICT)
-        

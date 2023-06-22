@@ -250,3 +250,15 @@ body {
   transition: transform .35s ease;
   transform-origin: .5em 50%;
 }
+
+@media (min-width: 768px) {
+  .card-columns {
+      column-count: 1;
+  }
+}
+
+@media (min-width: 1200px) {
+  .card-columns {
+      column-count: 3;
+  }
+}

@@ -1,0 +1,31 @@
+{% extends "publica/base.html" %}
+{% block title %}Index{% endblock %}
+{% block content %}
+
+<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+      <h1 class="h2">Reservas</h1>
+    </div>
+    <div class="container">
+      {% for message in messages %}
+            <div class="alert alert-{{ message.tags }}" role="alert">
+                {{message}}
+            </div>
+      {% endfor %}
+      <div class="row row-cols-1 row-cols-md-3 g-4">
+          {% for reserva in reservas %}
+          <div class="col">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">{{reserva.amenity.descripcion}}</h5>
+                <p class="card-text">{{reserva.fecha}} a las {{reserva.horario}}</p>
+                <a href="{% url 'reservas_eliminar' reserva.id %}" class="btn btn-sm btn-primary">Cancelar</a>
+              </div>
+            </div>
+          </div>
+          {% endfor %}  
+      </div>
+    </div>
+</main>
+
+{% endblock %}
